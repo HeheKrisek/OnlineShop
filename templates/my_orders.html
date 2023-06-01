@@ -1,0 +1,55 @@
+{% include "header.html" %}
+
+<h1 class="brand-name">Your orders</h1>
+<p class="about_contact_text">Your previous orders are listed below.</p>
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4 center">
+      {% if orders: %}
+      {% for order in orders: %}
+        <hr class="ordersHr">
+        <br/>
+<table class="table table-striped table-info">
+  <thead>
+    <tr>
+      <th scope="col">Order number</th>
+      <th scope="col">{{ order.id }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Buyer's name</th>
+      <td>{{ order.buyers_full_name }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Address</th>
+      <td>{{ order.country }} , {{ order.buyers_address }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Phone number</th>
+      <td>{{ order.buyers_phone }}</td>
+    </tr>
+  <tr>
+      <th scope="row">Products bought</th>
+      <td>{{ order.products_bought }}</td>
+    </tr>
+  <tr>
+      <th scope="row">Total price</th>
+      <td>{{ order.total_price }}</td>
+    </tr>
+  <tr>
+      <th scope="row">Order status</th>
+      <td>{{ order.status }}</td>
+    </tr>
+  </tbody>
+</table>
+      {% endfor %}
+      {% else: %}
+        <hr class="ordersHr">
+      <h3 class="about_contact_text">You have not placed any order yet.</h3>
+        {% endif %}
+
+
+    </div>
+</div>
+<a href="{{url_for('my_account') }}" class="btn btn-outline-info btn-lg del_button" type="button" >Back to my account</a>
+{% include "footer.html" %}

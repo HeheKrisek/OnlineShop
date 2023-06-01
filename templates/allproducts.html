@@ -1,0 +1,31 @@
+{% include "header.html" %}
+<br/>
+<div class="container">
+          <h1 class="heading">All products</h1>
+          <p class="description">Every product available on our site is listed below</p>
+        <hr>
+    <h5>Sort by price:</h5>
+    <a href="{{ url_for('allproducts') }}">Low to high</a><br/>
+    <a href="{{ url_for('allproductsd') }}">High to low</a>
+    <br/>
+    <hr class="sortHr">
+           {% if list: %}
+    <div class="row">
+               {% for product in list: %}
+    <div class="col-md-4">
+          <a class="product_name" href="{{ url_for('product_page', product_id=product.id) }}"><img src="{{ product.img_url }}" alt="" class="product_mini">
+        <hr class="productHr">
+              <p class="name_and_price">{{ product.name }}
+            <br/>
+        ${{ product.price }}</p></a>
+    </div>
+             {% endfor %}
+        </div>
+    {% else: %}
+          <div class="row"><div class="col-md-4">
+              <h3 class="nothingFound">No products available.</h3></div></div>
+    </div>
+
+{% endif %}
+
+{% include "footer.html" %}

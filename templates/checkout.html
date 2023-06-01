@@ -1,0 +1,12 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% include "header.html" %}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4 center">
+<h1 class="brand-name">Place your order</h1>
+<hr class="reviewHr">
+{{ wtf.quick_form(form, novalidate=True, button_map={"submit": "info"}) }}
+    </div>
+</div>
+
+{% include "footer.html" %}

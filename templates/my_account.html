@@ -1,0 +1,16 @@
+{% include "header.html" %}
+<h1 class="brand-name">Hello, {{ current_user.name }}</h1>
+<hr class="reviewHr">
+<h3 class="about_contact_text">Your e-mail address: {{ current_user.email }}</h3>
+
+{% if is_admin: %}
+    <a href="{{url_for('add') }}" class="btn btn-success btn-lg del_button" type="button" >Add new product</a>
+ {% endif %}
+
+<a href="{{url_for('my_orders') }}" class="btn btn-primary btn-lg del_button" type="button" >My orders</a>
+
+<a href="{{url_for('logout') }}" class="btn btn-danger btn-lg del_button" type="button" >Log out</a>
+
+<a onclick="return confirm('Are you sure you want to delete you account? This operation can't be undone!')" href="{{url_for('del_acc', acc_id=current_user.id) }}" class="btn btn-warning btn-lg del_button" type="button" >Delete account</a>
+
+{% include "footer.html" %}

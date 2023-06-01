@@ -1,0 +1,69 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% include "header.html" %}
+
+  <!-- Product Page Content -->
+<h1 class="product_name">{{ product.name }}</h1>
+<div class="row d-flex justify-content-center">
+  <div class="col-md-8 center">
+    <img src="{{ product.img_url }}" alt="" class="product_img">
+  </div>
+</div>
+<hr class="reviewHr">
+  <div class="row d-flex justify-content-center">
+<div class="col-md-4 center"><p class="product_desc">{{ product.desc }}</p></div>
+</div>
+<hr class="reviewHr">
+<div class="row d-flex justify-content-center">
+  <div class="col-md-8 center buy_button">
+      <h5 class="price">${{ product.price }}</h5>
+{{ wtf.quick_form(cart, novalidate=True, button_map={"submit": "primary"}) }}
+  </div>
+</div>
+{% if is_admin: %}
+    <a onclick="return confirm('Are you sure you want to delete this product?')" href="{{url_for('delete_product', product_id=product.id) }}" class="btn btn-danger btn-lg del_button" type="button" >Delete this product</a>
+ {% endif %}
+
+<!--           Reviews Area -->
+<hr>
+
+<div class="reviewField">
+  {{ ckeditor.load() }}
+                {{ ckeditor.config(name='review_text') }}
+                {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    </div>
+
+
+<h2 class="reviewSectionTitle">Customer reviews</h2>
+<div class="review">
+    {% if product.reviews: %}
+              {% for review in product.reviews: %}
+              <ul class="reviewList">
+                <li>
+                    {% if review.review_author: %}
+                      <img class="reviewUserImage" src="{{ review.review_author.email | gravatar }}"/>
+                    <span class="date reviewAuthorName">{{ review.review_author.name }}</span>
+                    {% else: %}
+
+                    <span class="date reviewAuthorName"> [Account deleted] </span>
+
+                    {% endif %}
+                    <div class="reviewText">
+                      {{review.text|safe}}
+                    </div>
+                    {% if review.author_id == current_user.id or is_admin: %}
+                    <a href="{{ url_for('delete_review', id=review.id) }}">Delete</a>
+                    {% endif %}
+                    <hr class="reviewHr">
+                </li>
+              </ul>
+               {% endfor %}
+
+    {% else: %}
+    <h4 class="noReviews">This product does not have any reviews yet.</h4>
+    {% endif %}
+    </div>
+
+{% include "footer.html" %}
+
+

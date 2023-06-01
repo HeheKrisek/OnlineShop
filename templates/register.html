@@ -1,0 +1,23 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% include "header.html" %}
+
+<div class="container">
+    
+    {% for message in get_flashed_messages() %}
+    <p><center class="error">{{ message }}</center></p>
+    
+{% endfor %}
+    
+    <div class="row">
+
+      <div class="col-lg-8 col-md-10 mx-auto content">
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+      </div>
+    </div>
+
+    <br/>
+    <center><p>Already have an account? Log in <a href="{{ url_for('login') }}">here</a>.</p></center>
+  </div>
+
+{% include "footer.html" %}

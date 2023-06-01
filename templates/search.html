@@ -1,0 +1,25 @@
+{% include "header.html" %}
+<h1 class="brand-name">Search results for "{{ searched }}":</h1>
+<hr class="reviewHr">
+<br/>
+{% if items: %}
+    <div class="row">
+               {% for product in items: %}
+    <div class="col-md-4">
+          <a class="product_name" href="{{ url_for('product_page', product_id=product.id) }}"><img src="{{ product.img_url }}" alt="" class="product_mini">
+        <p class="name_and_price">{{ product.name }}
+            <br/>
+        ${{ product.price }}</p></a>
+    </div>
+             {% endfor %}
+        </div>
+    {% else: %}
+            <br/>
+<div class="row">
+            <div class="col-md-12"><h3 class="nothingFound">We didn't find any product matching your search.</h3></div>
+
+</div>
+{% endif %}
+
+
+{% include "footer.html" %}
