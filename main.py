@@ -374,8 +374,14 @@ def checkout():
             if i < len(q_list) - 1:
                 products_bought += ", "
 
+        if current_user.is_authenticated:
+            buyer = current_user
+
+        else:
+            buyer = None
+
         new_order = Order(
-            buyer=current_user,
+            buyer=buyer,
             status="received",
             date=func.now(),
             country=form.country.data,
